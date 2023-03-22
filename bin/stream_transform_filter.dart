@@ -5,8 +5,7 @@ Stream<int> numbers() {
 void main() {
   numbers()
       .where((number) => number % 2 == 0)
-      .map((event) => event * 2)
-      .map((event) => event * 10)
+      .take(2)
       .listen((number) => print(number));
 
   print('done');
