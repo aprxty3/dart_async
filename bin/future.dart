@@ -8,19 +8,21 @@ Future<void> hello() {
 }
 
 Future<String> sayHello(String name) {
-  return Future.delayed(
-    Duration(seconds: 2),
-    () =>
-        // 'hello $name',
-        throw Error(),
-  );
+  // return Future.delayed(
+  //   Duration(seconds: 2),
+  //   () =>
+  //       // 'hello $name',
+  //       throw Error(),
+  // );
+  return Future.error(Exception('upppss'));
 }
 
 void main() {
   hello();
   sayHello('ajii')
-      .onError((error, stackTrace) => 'fallback')
-      .then((value) => print(value));
+      // .onError((error, stackTrace) => 'fallback')
+      .then((value) => print(value))
+      .catchError((error) => print('Error with message ${error.message}'));
 
   print('doneee');
 }
