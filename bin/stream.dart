@@ -13,11 +13,18 @@ Stream<String> stream() {
 void main() {
   Stream<String> flow = stream();
   StreamSubscription<String> listen = flow.listen((event) {
-    print(event);
+    print(event); //Stream akan diganti oleh onData
   });
-  // Ketika melisten stream function yang sama, makan akan menghasilkan error
-  StreamSubscription<String> listen2 = flow.listen((event) {
-    print(event);
+  listen.onData((event) {
+    print('Stream Subscription: $event');
   });
+  listen.onDone(() {
+    print('Stream Subscription: done');
+  });
+
+  /// Ketika melisten stream function yang sama, makan akan menghasilkan error
+  // StreamSubscription<String> listen2 = flow.listen((event) {
+  //   print(event);
+  // });
   print('done');
 }
