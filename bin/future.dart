@@ -14,13 +14,15 @@ Future<String> sayHello(String name) {
   //       // 'hello $name',
   //       throw Error(),
   // );
-  return Future.error(Exception('upppss'));
+  // return Future.error(Exception('upppss'));
+  return Future.value('hello $name');
 }
 
 void main() {
   hello();
   sayHello('ajii')
       // .onError((error, stackTrace) => 'fallback')
+      .whenComplete(() => print('done Future'))
       .then((value) => print(value))
       .catchError((error) => print('Error with message ${error.message}'));
 
