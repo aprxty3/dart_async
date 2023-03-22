@@ -10,12 +10,17 @@ Future<void> hello() {
 Future<String> sayHello(String name) {
   return Future.delayed(
     Duration(seconds: 2),
-    () => 'hello $name',
+    () =>
+        // 'hello $name',
+        throw Error(),
   );
 }
 
 void main() {
   hello();
-  sayHello('ajii').then((value) => print(value));
+  sayHello('ajii')
+      .onError((error, stackTrace) => 'fallback')
+      .then((value) => print(value));
+
   print('doneee');
 }
