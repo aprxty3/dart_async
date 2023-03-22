@@ -15,5 +15,9 @@ void main() {
   StreamSubscription<String> listen = flow.listen((event) {
     print(event);
   });
+  // Ketika melisten stream function yang sama, makan akan menghasilkan error
+  StreamSubscription<String> listen2 = flow.listen((event) {
+    print(event);
+  });
   print('done');
 }
