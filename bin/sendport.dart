@@ -1,17 +1,24 @@
 import 'dart:io';
 import 'dart:isolate';
 
-Future<String> numbers(SendPort sendPort) async {
+class Parameter {
+  String prefix;
+  SendPort sendPort;
+
+  Parameter(this.prefix, this.sendPort);
+}
+
+Future<String> numbers(Parameter parameter) async {
   for (var i = 0; i < 10; i++) {
     sleep(Duration(seconds: 1));
-    sendPort.send(i);
+    parameter.sendPort.send("${parameter.prefix} $i");
   }
   Isolate.exit();
 }
 
 void main() {
   final receivePort = ReceivePort();
-  Isolate.spawn(numbers, receivePort.sendPort);
+  Isolate.spawn(numbers, Parameter('Ajiii', receivePort.sendPort));
 
   receivePort.take(5).listen((value) {
     print(value);
